@@ -2,7 +2,7 @@
   "name": "nestjs-serverless-boilerplate",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "M.J. Abadilla",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
