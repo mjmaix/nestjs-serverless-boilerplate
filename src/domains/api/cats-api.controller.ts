@@ -7,7 +7,7 @@ import { UpdateCatDto } from '../cats/dto/update-cat.dto';
 @Controller('cats')
 export class CatsApiController {
   constructor() {
-    console.log(`${this.constructor.name} loaded`);
+    console.log(`${this.constructor.name} initialized`);
   }
 
   @Post()

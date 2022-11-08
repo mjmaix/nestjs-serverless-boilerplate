@@ -7,7 +7,7 @@ import { UpdateZooDto } from './dto/update-zoo.dto';
 @Injectable()
 export class ZooService {
   constructor() {
-    console.log(`${this.constructor.name} loaded`);
+    console.log(`${this.constructor.name} initialized`);
   }
 
   create(createZooDto: CreateZooDto) {

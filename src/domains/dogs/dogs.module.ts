@@ -7,6 +7,6 @@ import { DogsService } from './dogs.service';
 })
 export class DogsModule {
   constructor() {
-    console.log(`${this.constructor.name} loaded`);
+    console.log(`${this.constructor.name} initialized`);
   }
 }

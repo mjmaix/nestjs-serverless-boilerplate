@@ -9,6 +9,6 @@ import { ZooService } from './zoo.service';
 })
 export class ZooModule {
   constructor() {
-    console.log(`${this.constructor.name} loaded`);
+    console.log(`${this.constructor.name} initialized`);
   }
 }

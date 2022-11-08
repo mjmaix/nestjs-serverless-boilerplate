@@ -7,7 +7,7 @@ import { UpdateDogDto } from '../dogs/dto/update-dog.dto';
 @Controller('dogs')
 export class DogsApiController {
   constructor() {
-    console.log(`${this.constructor.name} loaded`);
+    console.log(`${this.constructor.name} initialized`);
   }
 
   @Post()

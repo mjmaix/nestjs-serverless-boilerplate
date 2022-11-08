@@ -11,7 +11,7 @@ export class CatsService {
     if (!this.uniqIdentifier) {
       this.uniqIdentifier = uuidv4();
     }
-    console.log(`${this.constructor.name} loaded - ${this.uniqIdentifier}`);
+    console.log(`${this.constructor.name} initialized - ${this.uniqIdentifier}`);
   }
 
   talk() {

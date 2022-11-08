@@ -8,6 +8,6 @@ import { DogsApiController } from './dogs-api.controller';
 })
 export class ApiModule {
   constructor() {
-    console.log(`${this.constructor.name} loaded`);
+    console.log(`${this.constructor.name} initialized`);
   }
 }

@@ -7,6 +7,6 @@ import { CatsService } from './cats.service';
 })
 export class CatsModule {
   constructor() {
-    console.log(`${this.constructor.name} loaded`);
+    console.log(`${this.constructor.name} initialized`);
   }
 }
