@@ -1,6 +1,8 @@
 import { INestApplication } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import serverlessExpress from '@vendia/serverless-express';
+import { Callback, Context, Handler } from 'aws-lambda';
 import { env } from 'process';
 
 import * as pkg from '../package.json';
@@ -16,7 +18,7 @@ function setupSwagger(app: INestApplication) {
   SwaggerModule.setup('docs', app, document);
 }
 
-async function bootstrap() {
+export async function bootstrap(): Promise<Handler> {
   console.time('startup time');
   const app = await NestFactory.create(AppModule);
 
@@ -26,6 +28,7 @@ async function bootstrap() {
   await app.listen(port);
   console.log(`Now listening on port ${port}`);
   console.timeEnd('startup time');
-}
 
-bootstrap();
+  const expressApp = app.getHttpAdapter().getInstance();
+  return serverlessExpress({ app: expressApp });
+}

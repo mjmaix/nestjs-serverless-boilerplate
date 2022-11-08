@@ -1,0 +1,28 @@
+service: nestjs-serverless-boilerplate
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-dynamodb-local
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  stage: ${opt:stage, 'dev'}
+
+functions:
+  main:
+    handler: src/lambda.handler
+    events:
+      - http:
+          method: ANY
+          path: /
+      - http:
+          method: ANY
+          path: '{proxy+}'
+
+custom:
+  optimize:
+    external: ['swagger-ui-dist']
+  serverlessPluginTypescript:
+    tsConfigFileLocation: './tsconfig.build.json'
