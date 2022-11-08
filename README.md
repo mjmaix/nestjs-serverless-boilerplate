@@ -12,6 +12,8 @@ Dev reminders:
 
 BUGS:
 
-https://docs.nestjs.com/fundamentals/lazy-loading-modules
+- https://docs.nestjs.com/fundamentals/lazy-loading-modules
 
 `If you use Webpack, make sure to update your tsconfig.json file - setting compilerOptions.module to "esnext" and adding compilerOptions.moduleResolution property with "node"`
+
+- Swagger requests does not include lambda stage prefix
