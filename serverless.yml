@@ -9,6 +9,8 @@ provider:
   name: aws
   runtime: nodejs16.x
   stage: ${opt:stage, 'dev'}
+  environment:
+    ENV: ${opt:stage, 'dev'}
 
 functions:
   main:
