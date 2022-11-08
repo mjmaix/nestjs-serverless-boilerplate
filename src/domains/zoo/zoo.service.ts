@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { LazyModuleLoader } from '@nestjs/core';
 
 import { LazyModuleFactory, LazyModuleKey } from '../../factories/lazy-module.factory';
+import { CatsModule } from '../cats/cats.module';
+import { DogsModule } from '../dogs/dogs.module';
 import { CreateZooDto } from './dto/create-zoo.dto';
 import { UpdateZooDto } from './dto/update-zoo.dto';
 
@@ -46,14 +48,14 @@ export class ZooService {
 
   private async lazyLoadDogsService() {
     const { DogsService } = await import('../dogs/dogs.service');
-    const moduleRef = await LazyModuleFactory.factory.generate(LazyModuleKey.Dogs, this.lazyModuleLoader);
+    const moduleRef = await LazyModuleFactory.factory.getRef(LazyModuleKey.Dogs, DogsModule);
 
     return moduleRef.get(DogsService);
   }
 
   private async lazyLoadCatsService() {
     const { CatsService } = await import('../cats/cats.service');
-    const moduleRef = await LazyModuleFactory.factory.generate(LazyModuleKey.Cats, this.lazyModuleLoader);
+    const moduleRef = await LazyModuleFactory.factory.getRef(LazyModuleKey.Cats, CatsModule);
 
     return moduleRef.get(CatsService);
   }

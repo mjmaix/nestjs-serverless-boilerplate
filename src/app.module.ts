@@ -3,15 +3,17 @@ import { LazyModuleLoader } from '@nestjs/core';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { CatsApiModule } from './domains/cat-api/cats-api.module';
-import { DogsApiModule } from './domains/dog-api/dogs-api.module';
+import { ApiModule } from './domains/api/api.module';
 import { ZooModule } from './domains/zoo/zoo.module';
+import { LazyModuleFactory } from './factories/lazy-module.factory';
 
 @Module({
-  imports: [CatsApiModule, DogsApiModule, ZooModule],
+  imports: [ApiModule, ZooModule],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {
-  constructor(private lazyModuleLoader: LazyModuleLoader) {}
+  constructor(private lazyModuleLoader: LazyModuleLoader) {
+    LazyModuleFactory.factory.setLazyModuleLoader(lazyModuleLoader);
+  }
 }

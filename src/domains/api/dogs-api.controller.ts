@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/commo
 import { LazyModuleLoader } from '@nestjs/core';
 
 import { LazyModuleFactory, LazyModuleKey } from '../../factories/lazy-module.factory';
+import { DogsModule } from '../dogs/dogs.module';
 import { CreateDogDto } from '../dogs/dto/create-dog.dto';
 import { UpdateDogDto } from '../dogs/dto/update-dog.dto';
 
@@ -55,7 +56,7 @@ export class DogsApiController {
 
   private async lazyLoadDogsService() {
     const { DogsService } = await import('../dogs/dogs.service');
-    const moduleRef = await LazyModuleFactory.factory.generate(LazyModuleKey.Dogs, this.lazyModuleLoader);
+    const moduleRef = await LazyModuleFactory.factory.getRef(LazyModuleKey.Dogs, DogsModule);
 
     return moduleRef.get(DogsService);
   }

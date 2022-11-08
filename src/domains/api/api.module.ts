@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 import { LazyModuleLoader } from '@nestjs/core';
 
+import { CatsApiController } from './cats-api.controller';
 import { DogsApiController } from './dogs-api.controller';
 
 @Module({
-  controllers: [DogsApiController],
+  controllers: [CatsApiController, DogsApiController],
 })
-export class DogsApiModule {
+export class ApiModule {
   constructor(private lazyModuleLoader: LazyModuleLoader) {
     console.log(`${this.constructor.name} loaded`);
   }

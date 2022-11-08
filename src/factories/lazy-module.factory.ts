@@ -1,47 +1,35 @@
+import { DynamicModule, Type } from '@nestjs/common';
 import { LazyModuleLoader, ModuleRef } from '@nestjs/core';
-
-import { CatsModule } from '../domains/cats/cats.module';
-import { DogsModule } from '../domains/dogs/dogs.module';
 
 export enum LazyModuleKey {
   Cats = 'cats',
   Dogs = 'dogs',
 }
 
-type Modules = typeof CatsModule | typeof DogsModule;
-
 export class LazyModuleFactory {
   public static factory = new LazyModuleFactory();
 
-  private moduleInstances = new Map<LazyModuleKey, ModuleRef>();
+  private moduleInstances = new Map<string, ModuleRef>();
 
-  public async generate(moduleKey: LazyModuleKey, loader: LazyModuleLoader) {
-    if (!LazyModuleFactory.factory) {
-      LazyModuleFactory.factory = new LazyModuleFactory();
-    }
-    let _module = this.moduleInstances.get(moduleKey);
-    let moduleCls: Modules;
+  private lazyModuleLoader: LazyModuleLoader;
+
+  public setLazyModuleLoader(lazyModuleLoader: LazyModuleLoader) {
+    this.lazyModuleLoader = lazyModuleLoader;
+  }
+
+  public async getRef(
+    key: LazyModuleKey,
+    moduleCls: Promise<Type<unknown> | DynamicModule> | Type<unknown> | DynamicModule,
+  ) {
+    let _module = this.moduleInstances.get(key);
     if (_module) {
       // cached
       return _module;
-    } else {
-      switch (moduleKey) {
-        case LazyModuleKey.Cats:
-          moduleCls = CatsModule;
-          break;
-
-        case LazyModuleKey.Dogs:
-          moduleCls = DogsModule;
-          break;
-
-        default:
-          throw new Error('Module factory missing');
-      }
     }
 
-    const moduleRef = await loader.load(() => moduleCls);
+    const moduleRef = await this.lazyModuleLoader.load(() => moduleCls);
     _module = moduleRef;
-    this.moduleInstances.set(moduleKey, _module);
+    this.moduleInstances.set(key, _module);
 
     return _module;
   }
