@@ -1,13 +1,12 @@
 import { Module } from '@nestjs/common';
-import { LazyModuleLoader } from '@nestjs/core';
 
 import { DogsService } from './dogs.service';
 
 @Module({
-  providers: [LazyModuleLoader, DogsService],
+  providers: [DogsService],
 })
 export class DogsModule {
-  constructor(private lazyModuleLoader: LazyModuleLoader) {
+  constructor() {
     console.log(`${this.constructor.name} loaded`);
   }
 }

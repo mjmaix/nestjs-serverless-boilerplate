@@ -14,6 +14,6 @@ import { LazyModuleFactory } from './factories/lazy-module.factory';
 })
 export class AppModule {
   constructor(private lazyModuleLoader: LazyModuleLoader) {
-    LazyModuleFactory.factory.setLazyModuleLoader(lazyModuleLoader);
+    LazyModuleFactory.instance.setLazyModuleLoader(lazyModuleLoader);
   }
 }

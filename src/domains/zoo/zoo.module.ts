@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { LazyModuleLoader } from '@nestjs/core';
 
 import { ZooController } from './zoo.controller';
 import { ZooService } from './zoo.service';
@@ -9,7 +8,7 @@ import { ZooService } from './zoo.service';
   providers: [ZooService],
 })
 export class ZooModule {
-  constructor(private lazyModuleLoader: LazyModuleLoader) {
+  constructor() {
     console.log(`${this.constructor.name} loaded`);
   }
 }

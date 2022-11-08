@@ -7,7 +7,7 @@ export enum LazyModuleKey {
 }
 
 export class LazyModuleFactory {
-  public static factory = new LazyModuleFactory();
+  public static instance = new LazyModuleFactory();
 
   private moduleInstances = new Map<string, ModuleRef>();
 

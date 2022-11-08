@@ -1,15 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { LazyModuleLoader } from '@nestjs/core';
 
 import { LazyModuleFactory, LazyModuleKey } from '../../factories/lazy-module.factory';
-import { CatsModule } from '../cats/cats.module';
-import { DogsModule } from '../dogs/dogs.module';
 import { CreateZooDto } from './dto/create-zoo.dto';
 import { UpdateZooDto } from './dto/update-zoo.dto';
 
 @Injectable()
 export class ZooService {
-  constructor(private lazyModuleLoader: LazyModuleLoader) {
+  constructor() {
     console.log(`${this.constructor.name} loaded`);
   }
 
@@ -47,16 +44,18 @@ export class ZooService {
   }
 
   private async lazyLoadDogsService() {
-    const { DogsService } = await import('../dogs/dogs.service');
-    const moduleRef = await LazyModuleFactory.factory.getRef(LazyModuleKey.Dogs, DogsModule);
+    const { DogsModule } = await import('../dogs/dogs.module');
+    const moduleRef = await LazyModuleFactory.instance.getRef(LazyModuleKey.Dogs, DogsModule);
 
+    const { DogsService } = await import('../dogs/dogs.service');
     return moduleRef.get(DogsService);
   }
 
   private async lazyLoadCatsService() {
-    const { CatsService } = await import('../cats/cats.service');
-    const moduleRef = await LazyModuleFactory.factory.getRef(LazyModuleKey.Cats, CatsModule);
+    const { CatsModule } = await import('../cats/cats.module');
+    const moduleRef = await LazyModuleFactory.instance.getRef(LazyModuleKey.Cats, CatsModule);
 
+    const { CatsService } = await import('../cats/cats.service');
     return moduleRef.get(CatsService);
   }
 }

@@ -1,14 +1,12 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
-import { LazyModuleLoader } from '@nestjs/core';
 
 import { LazyModuleFactory, LazyModuleKey } from '../../factories/lazy-module.factory';
-import { CatsModule } from '../cats/cats.module';
 import { CreateCatDto } from '../cats/dto/create-cat.dto';
 import { UpdateCatDto } from '../cats/dto/update-cat.dto';
 
 @Controller('cats')
 export class CatsApiController {
-  constructor(private lazyModuleLoader: LazyModuleLoader) {
+  constructor() {
     console.log(`${this.constructor.name} loaded`);
   }
 
@@ -49,9 +47,10 @@ export class CatsApiController {
   }
 
   private async lazyLoadCatsService() {
-    const { CatsService } = await import('../cats/cats.service');
-    const moduleRef = await LazyModuleFactory.factory.getRef(LazyModuleKey.Cats, CatsModule);
+    const { CatsModule } = await import('../cats/cats.module');
+    const moduleRef = await LazyModuleFactory.instance.getRef(LazyModuleKey.Cats, CatsModule);
 
+    const { CatsService } = await import('../cats/cats.service');
     return moduleRef.get(CatsService);
   }
 }
