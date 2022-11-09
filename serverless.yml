@@ -8,6 +8,10 @@ plugins:
 provider:
   name: aws
   runtime: nodejs16.x
+  apiGateway:
+    disableDefaultEndpoint: true
+  httpApi:
+    disableDefaultEndpoint: true
   stage: ${opt:stage, 'dev'}
   environment:
     ENV: ${opt:stage, 'dev'}
@@ -15,6 +19,7 @@ provider:
 functions:
   main:
     handler: src/lambda.handler
+    url: true
     events:
       - http:
           method: ANY

@@ -19,8 +19,8 @@ export const handler: Handler = async (
 ) => {
   server = server ?? (await bootstrap());
 
-  console.log('handler event', event);
-  console.log('handler context', context);
+  // console.log('handler event', event);
+  // console.log('handler context', context);
 
   return server(event, context, callback);
 };

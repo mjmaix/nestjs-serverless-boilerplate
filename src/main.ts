@@ -13,7 +13,6 @@ function setupSwagger(app: INestApplication) {
     .setTitle(pkg.name)
     .setDescription(pkg.description)
     .setVersion(pkg.version)
-    .setBasePath(process.env.ENV)
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('docs', app, document);
