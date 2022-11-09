@@ -1,8 +1,53 @@
 # NestJS Serverless Boilerplate
 
-TODO
+## Stack
 
-1. Lazy Module Guide
+nestjs.com
+serverless.com
+webpack.js.org
+typescriptlang.org
+prettier.io
+github.com/okonet/lint-staged
+
+## Concepts
+
+### Lazy Module
+
+**Modules**
+
+| modules          | type          |
+| ---------------- | ------------- |
+| src/domains/api  | loaded module |
+| src/domains/zoo  | loaded module |
+| src/domains/cats | lazy module   |
+| src/domains/dogs | lazy module   |
+
+**Paths**
+
+| Path         |
+| ------------ |
+| `/zoo/lazy`  |
+| `/dogs/lazy` |
+| `/cats/lazy` |
+| `/docs`      |
+
+## Deployment
+
+### Prerequisites
+
+```sh
+# install dependencies
+npm install
+
+# run locally offline
+npx sls offline start
+
+# setup aws
+aws configure
+
+# deploy remotely
+npx sls deploy --stage dev
+```
 
 ---
 
@@ -16,4 +61,4 @@ BUGS:
 
 `If you use Webpack, make sure to update your tsconfig.json file - setting compilerOptions.module to "esnext" and adding compilerOptions.moduleResolution property with "node"`
 
-- Swagger requests does not include lambda stage prefix
+- Swagger requests does not include lambda stage prefix for requests
